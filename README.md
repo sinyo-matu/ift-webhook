@@ -4,7 +4,7 @@
 
 binding to the ifttt webhook api.
 there is a async interface can be activate in feature `non-blocking`.
-and there is a time delay trigger function for delay the trigger in feature `delay`.
+and a time delay trigger function for delay the trigger in feature `delay`.
 
 the blocking interface use [ureq](https://crates.io/crates/ureq),
 and the non-blocking interface use [reqwest](https://crates.io/crates/reqwest) internally.
@@ -20,7 +20,7 @@ cargo add ifttt_webhook_rust
 
 # Usage
 - *blocking api*
-  ```rust
+```rust
     extern crate ifttt_webhook_rust
     extern crate dotenv
     use ifttt_webhook_rust::*
@@ -31,9 +31,9 @@ cargo add ifttt_webhook_rust
     let blocking_client = BlockingIftttWebHookClient::new(&event_name, &api_key);
     let res = client.trigger(None);
     assert!(res.is_ok())
-  ```
+```
 - *non-blocking api*
-  ```rust
+```rust
     extern crate ifttt_webhook_rust
     extern crate dotenv
     use ifttt_webhook_rust::*
@@ -45,10 +45,9 @@ cargo add ifttt_webhook_rust
     let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
     let res = client.trigger(Some(data)).await;
     assert!(res.is_ok())
-  ```
-
+```
 - *non-blocking api with time delay*
-  ```rust
+```rust
     extern crate ifttt_webhook_rust
     extern crate dotenv
     use ifttt_webhook_rust::*
@@ -62,4 +61,4 @@ cargo add ifttt_webhook_rust
     ///do something else
     let res = res_handler.await;
     assert!(res.is_ok())
-  ```
+```

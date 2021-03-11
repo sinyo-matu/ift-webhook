@@ -1,4 +1,4 @@
-# ifttt_webhook_rust
+# ift-webhook
 
 [![crate.io](https://img.shields.io/crates/v/ifttt_webhook_rust)](https://crates.io/crates/ifttt_webhook_rust)
 
@@ -34,8 +34,9 @@ cargo add ifttt_webhook_rust
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let client = BlockingIftttWebHookClient::new(&api_key);
-    let res = client.trigger(&event_name, None);
+    let client = IftWHClient::new(&api_key);
+    let data = WebHookData::new(Some("test1"), Some("test2"), Some("test3"));
+    let res = client.trigger(&event_name, data);
     assert!(res.is_ok())
 ```
 ### non-blocking api
@@ -52,9 +53,8 @@ ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let data = WebHookData::new(Some("test_blocking1"), Some("test2"), None);
-    let client = NonBlockingIftttWebHookClient::new(&api_key);
-    let res = client.trigger(&event_name, data).await;
+    let client = AsyncIftWHClient::new(&api_key);
+    let res = client.trigger(&event_name, None).await;
     assert!(res.is_ok())
 ```
 ### non-blocking api with time delay
@@ -71,7 +71,7 @@ ifttt_webhook_rust={version=*,default-features= false,features=["delay"]}
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let client = NonBlockingIftttWebHookClient::new(&api_key);    
+    let client = AsyncIftWHClient::new(&api_key);
     let res_handler: DelayResultHandler =
         client.trigger_with_delay(&event_name, None, std::time::Duration::from_secs(5));
     ///do something else

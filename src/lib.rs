@@ -15,7 +15,7 @@ pub type DelayResultHandler = tokio::task::JoinHandle<Result<(), Error>>;
 ///
 #[cfg(feature = "blocking")]
 #[derive(Debug, Clone)]
-pub struct BlockingIftttWebHookClient {
+pub struct IftWHClient {
     client: ureq::Agent,
     api_key: String,
 }
@@ -38,7 +38,7 @@ impl WebHookData {
 
 ///Blocking api client
 #[cfg(feature = "blocking")]
-impl BlockingIftttWebHookClient {
+impl IftWHClient {
     pub fn new(api_key: &str) -> Self {
         let client = ureq::Agent::new();
         Self {
@@ -80,13 +80,13 @@ impl BlockingIftttWebHookClient {
 /// async api client
 #[cfg(feature = "non-blocking")]
 #[derive(Debug, Clone)]
-pub struct NonBlockingIftttWebHookClient {
+pub struct AsyncIftWHClient {
     client: reqwest::Client,
     api_key: String,
 }
 
 #[cfg(feature = "non-blocking")]
-impl NonBlockingIftttWebHookClient {
+impl AsyncIftWHClient {
     pub fn new(api_key: &str) -> Self {
         let client = reqwest::Client::new();
         Self {

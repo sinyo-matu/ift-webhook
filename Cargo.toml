@@ -15,7 +15,7 @@ readme = "README.md"
 default=["blocking"]
 blocking=["ureq"]
 non-blocking=["reqwest"]
-delay=["reqwest","tokio"]
+delay=["non-blocking","tokio"]
 
 
 [dependencies]

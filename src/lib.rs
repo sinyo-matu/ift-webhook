@@ -1,5 +1,6 @@
 mod test;
 
+#[cfg(feature = "non-blocking")]
 use std::collections::HashMap;
 #[cfg(feature = "delay")]
 use tokio::task::JoinHandle;
@@ -8,7 +9,8 @@ use tokio::time::sleep;
 #[cfg(feature = "blocking")]
 use ureq::{SerdeMap, SerdeValue};
 
-type DelayResultHandler = tokio::task::JoinHandle<Result<(), Error>>;
+#[cfg(feature = "delay")]
+pub type DelayResultHandler = tokio::task::JoinHandle<Result<(), Error>>;
 
 ///
 #[cfg(feature = "blocking")]
@@ -26,7 +28,7 @@ pub struct WebHookData {
 }
 
 impl WebHookData {
-    fn new(value1: Option<&str>, value2: Option<&str>, value3: Option<&str>) -> Self {
+    pub fn new(value1: Option<&str>, value2: Option<&str>, value3: Option<&str>) -> Self {
         Self {
             value1: value1.map(|s| s.to_string()),
             value2: value2.map(|s| s.to_string()),
@@ -35,6 +37,7 @@ impl WebHookData {
     }
 }
 
+///Blocking api client
 #[cfg(feature = "blocking")]
 impl BlockingIftttWebHookClient {
     pub fn new(event_name: &str, api_key: &str) -> Self {
@@ -76,6 +79,7 @@ impl BlockingIftttWebHookClient {
     }
 }
 
+/// async api client
 #[cfg(feature = "non-blocking")]
 #[derive(Debug, Clone)]
 pub struct NonBlockingIftttWebHookClient {
@@ -95,7 +99,7 @@ impl NonBlockingIftttWebHookClient {
         }
     }
 
-    pub async fn trigger<'a>(&self, data: Option<WebHookData>) -> Result<(), Error> {
+    pub async fn trigger(&self, data: Option<WebHookData>) -> Result<(), Error> {
         let url = format!(
             "https://maker.ifttt.com/trigger/{event}/with/key/{key}",
             event = self.event_name,
@@ -123,7 +127,7 @@ impl NonBlockingIftttWebHookClient {
 
     ///this delay function will take ownership of the client.
     #[cfg(feature = "delay")]
-    fn trigger_with_delay(
+    pub fn trigger_with_delay(
         self,
         data: Option<WebHookData>,
         delay_time: std::time::Duration,

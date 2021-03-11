@@ -31,7 +31,8 @@ mod tests {
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
         let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-        let res_handler = client.trigger_with_delay(None, std::time::Duration::from_secs(5));
+        let res_handler: DelayResultHandler =
+            client.trigger_with_delay(None, std::time::Duration::from_secs(5));
         println!("yo");
         let res = res_handler.await;
         assert!(res.is_ok())

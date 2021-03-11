@@ -2,12 +2,17 @@
 
 [![crate.io](https://img.shields.io/crates/v/ifttt_webhook_rust)](https://crates.io/crates/ifttt_webhook_rust)
 
-binding to the ifttt webhook api.
+a simple lib binding to the [ifttt](https://ifttt.com/home)'s [webhook](https://ifttt.com/maker_webhooks) api.
 there is a async interface can be activate in feature `non-blocking`.
 and a time delay trigger function for delay the trigger in feature `delay`.
 
 the blocking interface use [ureq](https://crates.io/crates/ureq),
 and the non-blocking interface use [reqwest](https://crates.io/crates/reqwest) internally.
+
+about ifttt webhook usage:
+For example,You can call a url (supplied by ifttt) then receive a notification (could include data* you supplied) on you phone.
+
+*sometimes you can set some json data (up to three fields in it) on the request, which is depends on the service webhook connected with.
 
 # Installation
 

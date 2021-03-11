@@ -19,7 +19,7 @@ cargo add ifttt_webhook_rust
 ```
 
 # Usage
-###blocking api
+### blocking api
 *code*
 ```rust
     extern crate ifttt_webhook_rust
@@ -33,7 +33,7 @@ cargo add ifttt_webhook_rust
     let res = client.trigger(None);
     assert!(res.is_ok())
 ```
-###non-blocking api
+### non-blocking api
 *Cargo.toml*
 ```toml
 ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
@@ -52,7 +52,7 @@ ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
     let res = client.trigger(data).await;
     assert!(res.is_ok())
 ```
-###non-blocking api with time delay
+### non-blocking api with time delay
 *Cargo.toml*
 ```toml
 ifttt_webhook_rust={version=*,default-features= false,features=["delay"]}

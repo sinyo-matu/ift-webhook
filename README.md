@@ -29,7 +29,7 @@ cargo add ift-webhook
 ```rust
     extern crate ift-webhook
     extern crate dotenv
-    use ift-webhook::*
+    use ift_webhook::*
 
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
@@ -48,7 +48,7 @@ ift-webhook={version=*,default-features= false,features=["non-blocking"]}
 ```rust
     extern crate ift-webhook
     extern crate dotenv
-    use ift-webhook::*
+    use ift_webhook::*
 
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
@@ -66,7 +66,7 @@ ift-webhook={version=*,default-features= false,features=["delay"]}
 ```rust
     extern crate ift-webhook
     extern crate dotenv
-    use ift-webhook::*
+    use ift_webhook::*
     
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();

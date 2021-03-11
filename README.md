@@ -29,8 +29,8 @@ cargo add ifttt_webhook_rust
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let blocking_client = BlockingIftttWebHookClient::new(&event_name, &api_key);
-    let res = client.trigger(None);
+    let client = BlockingIftttWebHookClient::new(&api_key);
+    let res = client.trigger(&event_name, None);
     assert!(res.is_ok())
 ```
 ### non-blocking api
@@ -47,9 +47,9 @@ ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let data = WebHookData::new(Some("foo"), Some("bar"), None);
-    let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-    let res = client.trigger(data).await;
+    let data = WebHookData::new(Some("test_blocking1"), Some("test2"), None);
+    let client = NonBlockingIftttWebHookClient::new(&api_key);
+    let res = client.trigger(&event_name, data).await;
     assert!(res.is_ok())
 ```
 ### non-blocking api with time delay
@@ -66,9 +66,9 @@ ifttt_webhook_rust={version=*,default-features= false,features=["delay"]}
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
     let api_key = dotenv::var("KEY").unwrap();
-    let client = NonBlockingIftttWebHookClient::new(&event_name, api_key);
+    let client = NonBlockingIftttWebHookClient::new(&api_key);    
     let res_handler: DelayResultHandler =
-        client.trigger_with_delay(None,std::time::Duration::from_secs(5));
+        client.trigger_with_delay(&event_name, None, std::time::Duration::from_secs(5));
     ///do something else
     let res = res_handler.await;
     assert!(res.is_ok())

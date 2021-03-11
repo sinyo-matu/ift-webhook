@@ -7,8 +7,8 @@ mod tests {
         dotenv::dotenv().unwrap();
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
-        let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-        let res = client.trigger(None).await;
+        let client = NonBlockingIftttWebHookClient::new(&api_key);
+        let res = client.trigger(&event_name, None).await;
 
         assert!(res.is_ok())
     }
@@ -19,8 +19,8 @@ mod tests {
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
         let data = WebHookData::new(Some("test_blocking1"), Some("test2"), None);
-        let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-        let res = client.trigger(data).await;
+        let client = NonBlockingIftttWebHookClient::new(&api_key);
+        let res = client.trigger(&event_name, data).await;
 
         assert!(res.is_ok())
     }
@@ -30,9 +30,9 @@ mod tests {
         dotenv::dotenv().unwrap();
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
-        let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
+        let client = NonBlockingIftttWebHookClient::new(&api_key);
         let res_handler: DelayResultHandler =
-            client.trigger_with_delay(None, std::time::Duration::from_secs(5));
+            client.trigger_with_delay(&event_name, None, std::time::Duration::from_secs(5));
         println!("yo");
         let res = res_handler.await;
         assert!(res.is_ok())
@@ -43,8 +43,8 @@ mod tests {
         dotenv::dotenv().unwrap();
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
-        let client = BlockingIftttWebHookClient::new(&event_name, &api_key);
-        let res = client.trigger(None);
+        let client = BlockingIftttWebHookClient::new(&api_key);
+        let res = client.trigger(&event_name, None);
         assert!(res.is_ok())
     }
 
@@ -53,9 +53,9 @@ mod tests {
         dotenv::dotenv().unwrap();
         let event_name = dotenv::var("EVENT").unwrap();
         let api_key = dotenv::var("KEY").unwrap();
-        let client = BlockingIftttWebHookClient::new(&event_name, &api_key);
+        let client = BlockingIftttWebHookClient::new(&api_key);
         let data = WebHookData::new(Some("test1"), Some("test2"), Some("test3"));
-        let res = client.trigger(data);
+        let res = client.trigger(&event_name, data);
         assert!(res.is_ok())
     }
 }

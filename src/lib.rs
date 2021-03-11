@@ -17,7 +17,6 @@ pub type DelayResultHandler = tokio::task::JoinHandle<Result<(), Error>>;
 #[derive(Debug, Clone)]
 pub struct BlockingIftttWebHookClient {
     client: ureq::Agent,
-    event_name: String,
     api_key: String,
 }
 
@@ -40,19 +39,18 @@ impl WebHookData {
 ///Blocking api client
 #[cfg(feature = "blocking")]
 impl BlockingIftttWebHookClient {
-    pub fn new(event_name: &str, api_key: &str) -> Self {
+    pub fn new(api_key: &str) -> Self {
         let client = ureq::Agent::new();
         Self {
             client,
-            event_name: event_name.to_string(),
             api_key: api_key.to_string(),
         }
     }
 
-    pub fn trigger(&self, data: Option<WebHookData>) -> Result<(), Error> {
+    pub fn trigger(&self, event_name: &str, data: Option<WebHookData>) -> Result<(), Error> {
         let url = format!(
             "https://maker.ifttt.com/trigger/{event}/with/key/{key}",
-            event = self.event_name,
+            event = event_name,
             key = self.api_key
         );
         match data {
@@ -84,25 +82,23 @@ impl BlockingIftttWebHookClient {
 #[derive(Debug, Clone)]
 pub struct NonBlockingIftttWebHookClient {
     client: reqwest::Client,
-    event_name: String,
     api_key: String,
 }
 
 #[cfg(feature = "non-blocking")]
 impl NonBlockingIftttWebHookClient {
-    pub fn new(event_name: &str, api_key: &str) -> Self {
+    pub fn new(api_key: &str) -> Self {
         let client = reqwest::Client::new();
         Self {
             client,
-            event_name: event_name.to_string(),
             api_key: api_key.to_string(),
         }
     }
 
-    pub async fn trigger(&self, data: Option<WebHookData>) -> Result<(), Error> {
+    pub async fn trigger(&self, event_name: &str, data: Option<WebHookData>) -> Result<(), Error> {
         let url = format!(
             "https://maker.ifttt.com/trigger/{event}/with/key/{key}",
-            event = self.event_name,
+            event = event_name,
             key = self.api_key
         );
         match data {
@@ -129,12 +125,13 @@ impl NonBlockingIftttWebHookClient {
     #[cfg(feature = "delay")]
     pub fn trigger_with_delay(
         self,
+        event_name: &str,
         data: Option<WebHookData>,
         delay_time: std::time::Duration,
     ) -> DelayResultHandler {
         let url = format!(
             "https://maker.ifttt.com/trigger/{event}/with/key/{key}",
-            event = self.event_name,
+            event = event_name,
             key = self.api_key
         );
         match data {

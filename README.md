@@ -43,7 +43,7 @@ cargo add ifttt_webhook_rust
     let api_key = dotenv::var("KEY").unwrap();
     let data = WebHookData::new(Some("foo"), Some("bar"), None);
     let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-    let res = client.trigger(Some(data)).await;
+    let res = client.trigger(data).await;
     assert!(res.is_ok())
 ```
 - *non-blocking api with time delay*

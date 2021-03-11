@@ -20,7 +20,7 @@ mod tests {
         let api_key = dotenv::var("KEY").unwrap();
         let data = WebHookData::new(Some("test_blocking1"), Some("test2"), None);
         let client = NonBlockingIftttWebHookClient::new(&event_name, &api_key);
-        let res = client.trigger(Some(data)).await;
+        let res = client.trigger(data).await;
 
         assert!(res.is_ok())
     }
@@ -55,7 +55,7 @@ mod tests {
         let api_key = dotenv::var("KEY").unwrap();
         let client = BlockingIftttWebHookClient::new(&event_name, &api_key);
         let data = WebHookData::new(Some("test1"), Some("test2"), Some("test3"));
-        let res = client.trigger(Some(data));
+        let res = client.trigger(data);
         assert!(res.is_ok())
     }
 }

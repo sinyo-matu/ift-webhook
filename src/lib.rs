@@ -28,12 +28,12 @@ pub struct WebHookData {
 }
 
 impl WebHookData {
-    pub fn new(value1: Option<&str>, value2: Option<&str>, value3: Option<&str>) -> Self {
-        Self {
+    pub fn new(value1: Option<&str>, value2: Option<&str>, value3: Option<&str>) -> Option<Self> {
+        Some(Self {
             value1: value1.map(|s| s.to_string()),
             value2: value2.map(|s| s.to_string()),
             value3: value3.map(|s| s.to_string()),
-        }
+        })
     }
 }
 

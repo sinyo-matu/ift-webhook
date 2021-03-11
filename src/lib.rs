@@ -165,6 +165,7 @@ impl NonBlockingIftttWebHookClient {
     }
 }
 
+#[derive(Debug)]
 pub enum Error {
     #[cfg(feature = "blocking")]
     BlockingRequestError(ureq::Error),

@@ -1,5 +1,7 @@
 # ifttt_webhook_rust
 
+[![crate.io](https://img.shields.io/crates/v/ifttt_webhook_rust)](https://crates.io/crates/ifttt_webhook_rust)
+
 binding to the ifttt webhook api.
 there is a async interface can be activate in feature `non-blocking`.
 and there is a time delay trigger function for delay the trigger in feature `delay`.
@@ -8,7 +10,10 @@ the blocking interface use [ureq](https://crates.io/crates/ureq),
 and the non-blocking interface use [reqwest](https://crates.io/crates/reqwest) internally.
 
 # Installation
-use [cargo-edit](https://crates.io/crates/cargo-edit)
+
+- find in [crates.io](https://crates.io/crates/ifttt_webhook_rust)
+
+- use [cargo-edit](https://crates.io/crates/cargo-edit)
 ```sh
 cargo add ifttt_webhook_rust
 ```

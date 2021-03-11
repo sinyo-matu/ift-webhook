@@ -1,6 +1,6 @@
 # ift-webhook
 
-[![crate.io](https://img.shields.io/crates/v/ifttt_webhook_rust)](https://crates.io/crates/ifttt_webhook_rust)
+[![crate.io](https://img.shields.io/crates/v/ift-webhook)](https://crates.io/crates/ift-webhook)
 
 a simple lib binding to the [ifttt](https://ifttt.com/home)'s [webhook](https://ifttt.com/maker_webhooks) api.
 there is a async interface can be activate in feature `non-blocking`.
@@ -16,20 +16,20 @@ For example,You can call a url (supplied by ifttt) then receive a notification (
 
 # Installation
 
-- find in [crates.io](https://crates.io/crates/ifttt_webhook_rust)
+- find in [crates.io](https://crates.io/crates/ift-webhook)
 
 - use [cargo-edit](https://crates.io/crates/cargo-edit)
 ```sh
-cargo add ifttt_webhook_rust
+cargo add ift-webhook
 ```
 
 # Usage
 ### blocking api
 *code*
 ```rust
-    extern crate ifttt_webhook_rust
+    extern crate ift-webhook
     extern crate dotenv
-    use ifttt_webhook_rust::*
+    use ift-webhook::*
 
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
@@ -42,13 +42,13 @@ cargo add ifttt_webhook_rust
 ### non-blocking api
 *Cargo.toml*
 ```toml
-ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
+ift-webhook={version=*,default-features= false,features=["non-blocking"]}
 ```
 *code*
 ```rust
-    extern crate ifttt_webhook_rust
+    extern crate ift-webhook
     extern crate dotenv
-    use ifttt_webhook_rust::*
+    use ift-webhook::*
 
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();
@@ -60,13 +60,13 @@ ifttt_webhook_rust={version=*,default-features= false,features=["non-blocking"]}
 ### non-blocking api with time delay
 *Cargo.toml*
 ```toml
-ifttt_webhook_rust={version=*,default-features= false,features=["delay"]}
+ift-webhook={version=*,default-features= false,features=["delay"]}
 ```
 *code*
 ```rust
-    extern crate ifttt_webhook_rust
+    extern crate ift-webhook
     extern crate dotenv
-    use ifttt_webhook_rust::*
+    use ift-webhook::*
     
     dotenv::dotenv().unwrap();
     let event_name = dotenv::var("EVENT").unwrap();

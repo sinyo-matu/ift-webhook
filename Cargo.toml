@@ -7,7 +7,7 @@ license = "MIT"
 description = "a convenient tool for trigger ifttt's webhooks"
 categories = ["api-bindings","development-tools"]
 keywords = ["api","ifttt","webhook"]
-repository = "https://github.com/sinyo-matu/ifttt_webhook_rust"
+repository = "https://github.com/sinyo-matu/ift-webhook"
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
